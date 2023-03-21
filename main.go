@@ -2,8 +2,19 @@ package main
 
 import (
 	fmt "fmt"
+
 	"github.com/openfoodfacts/openfoodfacts-go"
 )
+
+func retrieve_allergens(product *openfoodfacts.Product) {
+
+	fmt.Printf("%s\n", product.Allergens)
+
+	if len(product.Allergens) <= 0 {
+		fmt.Println("Null allergens")
+	}
+
+}
 
 func main() {
 	food_api := openfoodfacts.NewClient("world", "", "")
@@ -17,8 +28,7 @@ func main() {
 
 		product, err := food_api.Product(barcode_number)
 		if err == nil {
-
-			fmt.Printf("%s\n", product)
+			retrieve_ingredients(product)
 		} else {
 			fmt.Println("Error:", err)
 		}
